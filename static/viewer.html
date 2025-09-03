@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamView - Просмотр HLS потоков</title>
+    
+    <!-- Video.js CSS -->
+    <link href="https://vjs.zencdn.net/8.5.2/video-js.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Наши стили -->
+    <link rel="stylesheet" href="viewer.css">
+</head>
+<body>
+    <!-- Анимированный фон -->
+    <div class="animated-background">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="gradient-orb orb-4"></div>
+    </div>
+    
+    <!-- Основной контейнер -->
+    <div class="app-container">
+        <!-- Топ-бар с glassmorphism -->
+        <header class="top-bar">
+            <div class="brand">
+                <div class="brand-icon">📺</div>
+                <h1 class="brand-title">StreamView</h1>
+                <span class="brand-subtitle">Live Streaming</span>
+            </div>
+            
+            <div class="header-controls">
+                <button class="control-btn" onclick="refreshStreams()">
+                    <span class="btn-icon">🔄</span>
+                    <span class="btn-text">Обновить</span>
+                </button>
+                <a href="/" class="control-btn home-btn">
+                    <span class="btn-icon">🏠</span>
+                    <span class="btn-text">На главную</span>
+                </a>
+            </div>
+        </header>
+        
+        <!-- Основной контент -->
+        <main class="main-content">
+            <!-- Секция плеера -->
+            <section class="player-zone">
+                <div class="player-card">
+                    <div class="player-wrapper" id="player-container">
+                        <div class="empty-player">
+                            <div class="empty-content">
+                                <div class="empty-icon">🎬</div>
+                                <h3>Выберите поток для просмотра</h3>
+                                <p>Выберите активный стрим из библиотеки справа</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </section>
+            
+            <!-- Боковая панель с потоками -->
+            <aside class="streams-panel">
+                <!-- Фильтры -->
+                <div class="panel-header">
+                    <h2 class="panel-title">Потоки</h2>
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="all">
+                            <span class="tab-text">Все</span>
+                            <span class="tab-badge" id="all-count">0</span>
+                        </button>
+                        <button class="filter-tab" data-filter="running">
+                            <span class="tab-text">Live</span>
+                            <span class="tab-badge live-badge" id="live-count">0</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Список потоков -->
+                <div class="streams-container" id="streams-list">
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                        <p>Загрузка потоков...</p>
+                    </div>
+                </div>
+            </aside>
+        </main>
+        
+        <!-- Нижняя панель с информацией -->
+        <footer class="info-panel" id="stream-details" style="display: none;">
+            <div class="info-section">
+                <h3 class="section-title">
+                    <span class="title-icon">📊</span>
+                    Информация о потоке
+                </h3>
+                <div class="info-grid" id="stream-info-grid">
+                    <!-- Динамически заполняется -->
+                </div>
+            </div>
+            
+            <div class="stats-section">
+                <h3 class="section-title">
+                    <span class="title-icon">📈</span>
+                    Статистика
+                </h3>
+                <div class="stats-grid">
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-info">
+                            <span class="stat-label">Битрейт</span>
+                            <span class="stat-value" id="bitrate">-</span>
+                        </div>
+                    </div>
+        
+                    <div class="stat-card">
+                        <div class="stat-icon">⏱️</div>
+                        <div class="stat-info">
+                            <span class="stat-label">Буфер</span>
+                            <span class="stat-value" id="buffer">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Video.js JavaScript -->
+    <script src="https://vjs.zencdn.net/8.5.2/video.min.js"></script>
+    
+    <!-- Наш JavaScript -->
+    <script src="viewer.js"></script>
+</body>
+</html>

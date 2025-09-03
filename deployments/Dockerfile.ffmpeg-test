@@ -1,0 +1,29 @@
+FROM alpine:latest
+
+# Устанавливаем все необходимые инструменты для тестирования
+RUN apk add --no-cache \
+    curl \
+    jq \
+    bash \
+    ffmpeg \
+    openssh-client \
+    rsync \
+    netcat-openbsd \
+    && rm -rf /var/cache/apk/*
+
+# Создаем рабочую директорию
+WORKDIR /tests
+
+# Настраиваем SSH для работы с known_hosts
+RUN mkdir -p ~/.ssh && chmod 700 ~/.ssh
+
+# Устанавливаем bash как default shell
+SHELL ["/bin/bash", "-c"]
+
+# Добавляем метку для версионирования
+LABEL description="FFmpeg testing image with SSH and tools"
+LABEL version="1.0"
+
+EXPOSE 10000-10100/udp
+
+CMD ["/bin/bash"]

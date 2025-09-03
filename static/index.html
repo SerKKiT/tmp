@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎥 Stream Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>🎥 Stream Manager</h1>
+            <div class="header-info">
+                <span>Последнее обновление: <span id="lastUpdate">-</span></span>
+                <button id="refreshBtn" class="btn btn-secondary">🔄 Обновить</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- Форма создания нового стрима -->
+            <section class="create-stream-section">
+                <h2>➕ Создать новый стрим</h2>
+                <form id="createStreamForm" class="create-stream-form">
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            id="streamName" 
+                            placeholder="Введите название стрима..." 
+                            required
+                            maxlength="100"
+                        >
+                        <button type="submit" id="createStreamBtn" class="btn btn-primary">
+                            ➕ Создать стрим
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Индикатор загрузки -->
+            <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+                <div class="spinner"></div>
+                <span>Загрузка...</span>
+            </div>
+
+            <!-- Список стримов -->
+            <section class="streams-section">
+                <h2>📋 Управление стримами</h2>
+                <div id="streamsContainer" class="streams-container">
+                    <!-- Стримы будут загружены через JavaScript -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Контейнер для уведомлений -->
+    <div id="notificationsContainer" class="notifications-container"></div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>🚀 Stream Manager v2.0 | Управление потоками в реальном времени</p>
+            <p>
+                <a href="viewer.html" target="_blank">📺 Просмотр стримов</a> | 
+                <a href="/streaming/api/health" target="_blank">🔧 Статус Streaming Service</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

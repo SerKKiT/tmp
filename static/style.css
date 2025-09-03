@@ -1,0 +1,848 @@
+/* ========================================
+   БАЗОВЫЕ СТИЛИ
+======================================== */
+:root {
+    --primary-dark: #001f3f; /* Navy blue */
+    --primary-medium: #003366;
+    --primary-light: #00509e;
+    --accent-blue: #007bff;
+    --background-dark: #0a192f;
+    --background-gradient-start: #0a192f;
+    --background-gradient-end: #1e3a8a;
+    --text-light: #f0f4f8;
+    --text-muted: #a0b3c6;
+    --card-bg: #122b4d;
+    --border-color: #2a4a6e;
+    --success-bg: #1a3d2a;
+    --success-text: #4ade80;
+    --warning-bg: #4a3a1a;
+    --warning-text: #fbbf24;
+    --error-bg: #4d1a1a;
+    --error-text: #f87171;
+    --info-bg: #1a3d4d;
+    --info-text: #60a5fa;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --blur-radius: 10px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-light);
+    background: linear-gradient(135deg, var(--background-gradient-start) 0%, var(--background-gradient-end) 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ========================================
+   HEADER
+======================================== */
+.header {
+    background: rgba(10, 25, 47, 0.8); /* Semi-transparent dark blue */
+    backdrop-filter: blur(var(--blur-radius));
+    -webkit-backdrop-filter: blur(var(--blur-radius));
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.header h1 {
+    color: var(--text-light);
+    font-size: 2rem;
+    font-weight: 600;
+    text-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.header-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* ========================================
+   MAIN CONTENT
+======================================== */
+.main {
+    flex: 1;
+    margin-bottom: 2rem;
+}
+
+/* Секции */
+.create-stream-section, 
+.streams-section {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 32px var(--shadow-color);
+    backdrop-filter: blur(var(--blur-radius));
+    -webkit-backdrop-filter: blur(var(--blur-radius));
+}
+
+.create-stream-section h2, 
+.streams-section h2 {
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* ========================================
+   ФОРМА СОЗДАНИЯ СТРИМА
+======================================== */
+.create-stream-form {
+    position: relative;
+    transition: opacity 0.3s ease;
+}
+
+.create-stream-form .input-group {
+    display: flex;
+    gap: 1rem;
+    align-items: stretch;
+}
+
+.create-stream-form input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background: var(--primary-medium);
+    color: var(--text-light);
+}
+
+.create-stream-form input::placeholder {
+    color: var(--text-muted);
+}
+
+.create-stream-form input:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+.create-stream-form input:disabled {
+    background: var(--primary-dark);
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* ✅ Стили для заблокированной формы */
+.create-stream-form.is-submitting {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.create-stream-form.is-submitting::after {
+    content: '⏳ Создание стрима...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(10, 25, 47, 0.95);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 500;
+    z-index: 10;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    color: var(--text-light);
+}
+
+/* ========================================
+   КНОПКИ
+======================================== */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn:hover:not(:disabled)::before {
+    left: 100%;
+}
+
+/* ✅ Оптимизированные disabled состояния */
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+    pointer-events: none;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--primary-light), var(--accent-blue));
+    color: var(--text-light);
+    border: 1px solid transparent;
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+}
+
+.btn-secondary {
+    background: var(--primary-medium);
+    color: var(--text-light);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: var(--primary-light);
+    transform: translateY(-1px);
+}
+
+.btn-danger {
+    background: var(--error-bg);
+    color: var(--error-text);
+}
+
+.btn-danger:hover:not(:disabled) {
+    background: darken(var(--error-bg), 10%);
+    transform: translateY(-1px);
+}
+
+.btn-info {
+    background: var(--info-bg);
+    color: var(--info-text);
+}
+
+.btn-info:hover:not(:disabled) {
+    background: darken(var(--info-bg), 10%);
+    transform: translateY(-1px);
+}
+
+/* ========================================
+   КОНТЕЙНЕР СТРИМОВ
+======================================== */
+.streams-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
+    min-height: 200px;
+}
+
+.no-streams {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    background: rgba(18, 43, 77, 0.5);
+    border-radius: 12px;
+    border: 2px dashed var(--border-color);
+}
+
+/* ========================================
+   КАРТОЧКИ СТРИМОВ
+======================================== */
+.stream-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 2px solid var(--border-color);
+    position: relative;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    will-change: border-color, box-shadow;
+    min-height: 200px;
+}
+
+.stream-card:hover {
+    border-color: var(--accent-blue);
+    box-shadow: 0 4px 20px rgba(0, 123, 255, 0.3);
+}
+
+/* ✅ Состояние загрузки карточки */
+.stream-card.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.stream-card.loading::after {
+    content: '🔄';
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.2rem;
+    animation: spin 1s linear infinite;
+}
+
+/* ✅ Плавное появление новых карточек */
+.stream-card.entering {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.stream-card.entered {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* ✅ Плавное исчезновение карточек */
+.stream-card.exiting {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* ========================================
+   ЗАГОЛОВОК КАРТОЧКИ
+======================================== */
+.stream-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.stream-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin: 0;
+    word-break: break-word;
+    transition: none;
+}
+
+/* ========================================
+   СТАТУС СТРИМА
+======================================== */
+.stream-status {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    transition: none;
+    will-change: transform;
+    transform-origin: center;
+}
+
+/* ✅ Микро-анимация изменения статуса */
+.stream-status.updating {
+    transform: scale(1.05);
+    transition: transform 0.15s ease;
+}
+
+.status-stopped {
+    background: var(--primary-dark);
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+}
+
+.status-starting {
+    background: var(--warning-bg);
+    color: var(--warning-text);
+    border: 1px solid darken(var(--warning-bg), 10%);
+}
+
+.status-starting::before {
+    content: '🔄';
+    animation: spin 2s linear infinite;
+    margin-right: 0.25rem;
+}
+
+.status-running {
+    background: var(--success-bg);
+    color: var(--success-text);
+    border: 1px solid darken(var(--success-bg), 10%);
+}
+
+.status-error {
+    background: var(--error-bg);
+    color: var(--error-text);
+    border: 1px solid darken(var(--error-bg), 10%);
+}
+
+/* ========================================
+   ИНФОРМАЦИЯ О СТРИМЕ
+======================================== */
+.stream-info {
+    margin-bottom: 1.5rem;
+}
+
+.stream-detail {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    transition: none;
+}
+
+.stream-detail strong {
+    color: var(--text-light);
+}
+
+.stream-detail code {
+    background: var(--primary-dark);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    word-break: break-all;
+    color: var(--accent-blue);
+}
+
+.updated-time {
+    transition: none;
+}
+
+/* ========================================
+   ДЕЙСТВИЯ С СТРИМОМ
+======================================== */
+.stream-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.stream-actions .btn {
+    flex: 1;
+    min-width: 100px;
+    justify-content: center;
+    font-size: 0.8rem;
+    padding: 0.5rem 0.75rem;
+    transition: opacity 0.2s ease, transform 0.3s ease;
+}
+
+/* ✅ Плавное изменение доступности кнопок */
+.stream-actions .btn.disabled-smooth {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/* ========================================
+   ДЕТАЛИ СТРИМА
+======================================== */
+.stream-urls {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.stream-urls-content h4 {
+    margin-bottom: 1rem;
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+.url-item {
+    margin-bottom: 0.75rem;
+    padding: 0.75rem;
+    background: var(--primary-dark);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    transition: background-color 0.2s ease;
+}
+
+.url-item:hover {
+    background: var(--primary-medium);
+}
+
+.url-item strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: var(--text-light);
+}
+
+.url-item code {
+    display: block;
+    background: var(--card-bg);
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin: 0.25rem 0;
+    border: 1px solid var(--border-color);
+    word-break: break-all;
+    font-family: 'Courier New', monospace;
+    transition: border-color 0.2s ease;
+    color: var(--accent-blue);
+}
+
+.url-item code:hover {
+    border-color: var(--accent-blue);
+}
+
+.copy-btn {
+    background: var(--success-bg);
+    color: var(--success-text);
+    border: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    margin-left: 0.5rem;
+    transition: background-color 0.2s ease;
+}
+
+.copy-btn:hover {
+    background: darken(var(--success-bg), 10%);
+}
+
+/* ========================================
+   ИНДИКАТОР ЗАГРУЗКИ
+======================================== */
+.loading-indicator {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-muted);
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--border-color);
+    border-top: 4px solid var(--accent-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+/* ========================================
+   УВЕДОМЛЕНИЯ
+======================================== */
+.notifications-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 400px;
+}
+
+.notification {
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    backdrop-filter: blur(var(--blur-radius));
+    -webkit-backdrop-filter: blur(var(--blur-radius));
+    animation: slideIn 0.3s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.notification::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.2);
+    animation: progress 5s linear forwards;
+}
+
+.notification-success {
+    background: rgba(26, 61, 42, 0.9); /* Dark success */
+}
+
+.notification-error {
+    background: rgba(77, 26, 26, 0.9); /* Dark error */
+}
+
+.notification-info {
+    background: rgba(26, 61, 77, 0.9); /* Dark info */
+}
+
+/* ========================================
+   FOOTER
+======================================== */
+.footer {
+    background: rgba(10, 25, 47, 0.8);
+    backdrop-filter: blur(var(--blur-radius));
+    -webkit-backdrop-filter: blur(var(--blur-radius));
+    padding: 1rem 0;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer a:hover {
+    color: var(--text-light);
+    text-decoration: underline;
+}
+
+/* ========================================
+   АНИМАЦИИ
+======================================== */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes progress {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 100%;
+    }
+}
+
+/* ✅ Анимация подсветки изменений */
+@keyframes highlight {
+    0% {
+        border-left-color: transparent;
+        border-left-width: 2px;
+    }
+    50% {
+        border-left-color: var(--accent-blue);
+        border-left-width: 4px;
+    }
+    100% {
+        border-left-color: transparent;
+        border-left-width: 2px;
+    }
+}
+
+.stream-card.highlight {
+    animation: highlight 1s ease-in-out;
+}
+
+/* ========================================
+   ОПТИМИЗАЦИИ ПРОИЗВОДИТЕЛЬНОСТИ
+======================================== */
+/* ✅ Предотвращение layout shifts */
+.stream-card * {
+    box-sizing: border-box;
+}
+
+/* ✅ Оптимизация GPU для анимаций */
+.stream-card {
+    transform: translateZ(0);
+}
+
+.stream-status {
+    transform: translateZ(0);
+}
+
+.btn {
+    transform: translateZ(0);
+}
+
+/* ========================================
+   RESPONSIVE ДИЗАЙН
+======================================== */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .header .container {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .streams-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .create-stream-form .input-group {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .create-stream-form input {
+        width: 100%;
+    }
+    
+    .notifications-container {
+        left: 1rem;
+        right: 1rem;
+        max-width: none;
+    }
+    
+    .stream-card {
+        min-height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .stream-actions {
+        flex-direction: column;
+    }
+    
+    .stream-actions .btn {
+        flex: none;
+        min-width: auto;
+    }
+    
+    .stream-header {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .stream-status {
+        align-self: flex-start;
+    }
+}
+
+/* ========================================
+   ТЕМЫ И КАСТОМИЗАЦИЯ
+======================================== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ✅ Дополнительные оптимизации */
+.stream-card {
+    contain: layout style;
+}
+
+.stream-status {
+    contain: layout style;
+}
+
+/* Улучшенная доступность */
+.btn:focus {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+}
+
+.create-stream-form input:focus {
+    outline: none;
+}
+
+/* Скрытие элементов для screen readers при загрузке */
+.loading [aria-hidden="true"] {
+    display: none;
+}
+
+/* ✅ Плавные переходы для оптимистичных обновлений */
+.stream-card {
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* ✅ Стили для кнопок в состоянии обработки */
+.btn.processing {
+    background: linear-gradient(45deg, var(--warning-bg), darken(var(--warning-bg), 10%)) !important;
+    pointer-events: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn.processing::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* ✅ Пульсирующая анимация для подтверждения */
+.stream-card.pulse {
+    animation: pulse 0.6s ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+/* ✅ Анимация ошибки */
+.stream-card.error-shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
